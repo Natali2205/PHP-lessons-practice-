@@ -1,4 +1,5 @@
 <?php
+
 echo "<hr>"."Завдання 1:";
 $text1="Hello";
 $text2="World!";
