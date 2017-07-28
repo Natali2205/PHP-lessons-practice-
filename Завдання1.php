@@ -52,10 +52,16 @@ $year=2000;
    }
 
 echo "<hr>"."Завдання 6:";
-//$str="385934";
-//$stmas=str_split($str);
-//print_r str_split($str);
-$str5 = "385934";
+$string = '385934';
+$part1= substr($string,0,3);
+$part2= substr($string,3,3);
+$part1mas=str_split($part1);
+$part2mas=str_split($part2);
+$p1=array_sum($part1mas);
+$p2=array_sum($part1mas);
 
-$arr1 = str_split($str5);
-
+if($p1==$p2){
+	echo "Yes";
+}else{
+	echo "No";
+}
