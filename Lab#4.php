@@ -22,8 +22,43 @@ function Redirect($url, $permanent = false)
 
     exit();
 }
-
 Redirect('http://www.google.com/', false);
+
+//2
+$svg = new SimpleXMLElement( $svgString );
+$svg->registerXPathNamespace('svg', 'https://www.epam.com/about/svg');
+$svg->registerXPathNamespace('xlink', 'https://www.epam.com/about/xlink');
+$result = $svg->xpath('//svg:image/@xlink:href');
+
+echo count( $result ); // output: '2'
+for ($i = 0; $i < count($result); $i++)
+{
+    var_dump( $result[$i] );
+}
+//4
+<?php
+$arr = [1, 5, 7, 4, 8, 9, 6, 5, 3, 4, 2];
+function task_sort($array, $start, $lenght = null)
+{
+    if (is_null($lenght)) {
+        $lenght = count($array);
+    }
+    if (isset($start)) {
+        $left = array_slice($array, 0, $start);
+        if (isset($length)) {
+            $current_segment = array_slice($array, $start, $lenght);
+            $current_segment = sort($current_segment);
+            $right = array_slice($array, $lenght, count($array));
+            $result = array_merge($left, $current_segment, $right);
+            return $result;
+        } else {
+            echo "incorect value" . $lenght;
+        }
+    } else {
+        return;
+    }
+    $arr = [1, 5, 7, 4, 8, 9, 6, 5, 3, 4, 2];
+    var_dump(task_sort($arr, 3));
 //5
 $arr = array(':)', ';(', ';}', ':-D');
 $search = array(':)', ':-D');
