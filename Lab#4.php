@@ -36,29 +36,29 @@ for ($i = 0; $i < count($result); $i++)
     var_dump( $result[$i] );
 }
 //4
-<?php
-$arr = [1, 5, 7, 4, 8, 9, 6, 5, 3, 4, 2];
-function task_sort($array, $start, $lenght = null)
+
+function task_sort($array, $start, $length = null)
 {
-    if (is_null($lenght)) {
-        $lenght = count($array);
+    if (is_null($length)) {
+        $length = count($array);
     }
     if (isset($start)) {
         $left = array_slice($array, 0, $start);
         if (isset($length)) {
-            $current_segment = array_slice($array, $start, $lenght);
-            $current_segment = sort($current_segment);
-            $right = array_slice($array, $lenght, count($array));
+            $current_segment = array_slice($array, $start, $length);
+            sort($current_segment);
+            $right = array_slice($array, $length, count($array));
             $result = array_merge($left, $current_segment, $right);
             return $result;
         } else {
-            echo "incorect value" . $lenght;
+            echo "incorect value" . $length;
         }
     } else {
         return;
     }
+}
     $arr = [1, 5, 7, 4, 8, 9, 6, 5, 3, 4, 2];
-    var_dump(task_sort($arr, 3));
+    var_dump(task_sort($arr, 3,11));
 //5
 $arr = array(':)', ';(', ';}', ':-D');
 $search = array(':)', ':-D');
