@@ -2,7 +2,6 @@
 //1
 $str = 'var_test_text';
 $modify = lcfirst(str_replace('_', '', ucwords($str, '_')));
-echo lcfirst($modify);
 echo "1). Перетворити рядок 'var_test_text' в 'varTestText'." . '<br>' . "Розв'язок: ";
 echo lcfirst($modify);
 '<hr>';
