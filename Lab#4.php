@@ -3,38 +3,47 @@
 $ip = "206.190.36.45";
 $host = gethostbyaddr($ip);
 echo gethostbyname($host);
-//1.2
-$domain = 'mkyong123.com';
 
-if (preg_match('/^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$/', $domain)) {
-    $mydomain = $domain;
-    echo 'Match';
+//1.2
+$domain = 'dotcom.com';
+$host = gethostbyname($domain);
+if (filter_var($host, FILTER_VALIDATE_IP)) {
+    echo 'валідний';
 } else {
-    $mydomain = preg_replace("/^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$/", "", $domain);
-    echo 'No match';
+    echo 'невалідний';
 }
 //1.3
-function Redirect($url, $permanent = false)
-{
-    if (headers_sent() === false) {
-        header('Location: ' . $url, true, ($permanent === true) ? 301 : 302);
-    }
-
-    exit();
-}
-Redirect('http://www.google.com/', false);
+header("HTTP/1.1 301 Moved Permanently");
+header("Location: http://google.com");
+exit();
 
 //2
-$svg = new SimpleXMLElement( $svgString );
-$svg->registerXPathNamespace('svg', 'https://www.epam.com/about/svg');
-$svg->registerXPathNamespace('xlink', 'https://www.epam.com/about/xlink');
-$result = $svg->xpath('//svg:image/@xlink:href');
 
-echo count( $result ); // output: '2'
-for ($i = 0; $i < count($result); $i++)
+$page = 'https://www.epam.com/about';
+function counting($svg)
 {
-    var_dump( $result[$i] );
+    preg_match_all('/<svg/', file_get_contents($svg), $matches);
+    return count($matches[0]);
 }
+
+echo counting($page);
+//3
+$arr = [1, -2, 3, 4, -5, -4, 3, 2, 1];
+$arr2 = [[1, 3], [0, 4], [6, 8]];
+$arrMax[] = 0;
+function maxumum($array, $ranges)
+{
+    foreach ($ranges as $key => $range) {
+        $new = array_sum(array_slice($array, $range[0], ($range[1]) - $range[0] + 1));
+        $arrMax[$key] = $new;
+    }
+    arsort($arrMax);
+    return $ranges[key($arrMax)];
+}
+
+print_r(maxumum($arr, $arr2));
+echo '<hr>';
+
 //4
 
 function task_sort($array, $start, $length = null)
@@ -42,81 +51,58 @@ function task_sort($array, $start, $length = null)
     if (is_null($length)) {
         $length = count($array);
     }
+
     if (isset($start)) {
         $left = array_slice($array, 0, $start);
         if (isset($length)) {
+            $right = array_slice($array, $start + $length);
             $current_segment = array_slice($array, $start, $length);
-            sort($current_segment);
-            $right = array_slice($array, $length, count($array));
-            $result = array_merge($left, $current_segment, $right);
-            return $result;
+
         } else {
-            echo "incorect value" . $length;
+            $right = array_slice($array, count($arr));
+            $current_segment = array_slice($array, $start);
         }
+        asort($current_segment);
+
+        return array_merge($left, $current_segment, $right);
     } else {
-        return;
+        echo "incorect";
     }
+
 }
-    $arr = [1, 5, 7, 4, 8, 9, 6, 5, 3, 4, 2];
-    var_dump(task_sort($arr, 3,11));
+
+$arr = [1, 5, 7, 4, 8, 9, 6, 5, 3, 4, 2];
+var_dump(task_sort($arr, 3));
+echo "<hr>";
+var_dump(task_sort($arr, 3, 5));
+echo '<hr>';
+
 //5
-$arr = array(':)', ';(', ';}', ':-D');
-$search = array(':)', ':-D');
-$count = 0;
-for ($i = 0; $i < count($search); $i++) {
-    echo '<br>' . $search[$i] . '<br>';
-
-    $key = array_search($search[$i], $arr);
-
-    echo 'Key value =>' . $key . " ";
-    if ($key >= 0) {
-        $count = $count + 1;
-    }
+function counterSmile($arr)
+{
+    return count(preg_grep('/[:;][-~]?[)D]/', $arr));
 }
-echo '<br>' . 'Count value =>' . $count;
-echo '<hr>';
-$arr = array(';D', ':-(', ':-)', ';~)');
-$search = array(':-)', ';D', '~)');
-$count = 0;
-for ($i = 0; $i < count($search); $i++) {
-    echo '<br>' . $search[$i] . '<br>';
 
-    $key = array_search($search[$i], $arr);
-
-    echo 'Key value =>' . $key . " ";
-    if ($key >= 0) {
-        $count = $count + 1;
-    }
-}
-echo '<br>' . 'Count value =>' . $count;
-echo '<hr>';
-$arr = array(';]', ':[', ';*', ':$', ';-D', '');
-$search = [':-D'];
-$count = 0;
-for ($e = 0; $e < count($search); $e++) {
-    echo '<br>' . $search[$e] . '<br>';
-
-    $key = array_search($search[$e], $arr);
-
-    if ($key >= 0) {
-        $count = $count + 1;
-    }
-}
-echo '<br>' . 'Count value =>' . $count;
+;
+$arr1 = [':)', ';(', ';}', ':-D'];
+$arr2 = [';D', ':-(', ':-)', ';~)'];
+$arr3 = [';]', ':[', ';*', ':$', ';-D'];
+echo "У 1:" . counterSmile($arr1) . ', ' . "У 2: " . counterSmile($arr2) . ', ' . "У 3:" . counterSmile($arr3);
 echo '<hr>';
 //6
 $str = "raersrrrersassswwaaadfdfeeefgtthtgffdd";
-function getLongestLength($string)
+function getLongestLength($str)
 {
-    $longest = $i = 0;
-    $len = strlen($string);
-    while ($i < $len) {
-        if (($length = strspn($string, $string[$i], $i)) > $longest) {
+    $longest = 0;
+    $len = strlen($str);
+    for ($i = 0; $i < $len; $i++) {
+        if (($length = strrpos($str, $str[$i]) - $i + 1) > $longest) {
             $longest = $length;
+            $char = $i;
         }
-        $i += $length;
+
     }
-    return $longest;
+    return $str[$char] . $longest;
 }
 
 print_r(getLongestLength($str));
