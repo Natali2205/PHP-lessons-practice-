@@ -82,12 +82,10 @@ function counterSmile($arr)
 {
     return count(preg_grep('/[:;][-~]?[)D]/', $arr));
 }
-
-;
 $arr1 = [':)', ';(', ';}', ':-D'];
 $arr2 = [';D', ':-(', ':-)', ';~)'];
 $arr3 = [';]', ':[', ';*', ':$', ';-D'];
-echo "У 1:" . counterSmile($arr1) . ', ' . "У 2: " . counterSmile($arr2) . ', ' . "У 3:" . counterSmile($arr3);
+echo "in 1)- " . counterSmile($arr1) . '<br> ' . "in 2)- " . counterSmile($arr2) . '<br>' . "in 3)-" . counterSmile($arr3);
 echo '<hr>';
 //6
 $str = "raersrrrersassswwaaadfdfeeefgtthtgffdd";
